@@ -1,0 +1,192 @@
+.class-container {
+    border-radius: 5px;
+    background-color: white;
+}
+
+.class-body {
+    background-color: #f1f1f1;
+}
+
+.class-star-inf {
+    display: flex;
+    align-items: center;
+    color: #FFC400;
+}
+
+.df {
+    color: #FFAB00;
+}
+
+.class-star-inf>strong {
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.class-title {
+    font-style: none;
+    color: #494949;
+    padding-left: 30px;
+    display: inline-block;
+}
+
+.class-number {
+    display: inline-block;
+    font-size: 12px;
+    color: gray;
+    margin-left: 30px;
+}
+
+.class-title-container {
+    padding: 20px 0px 16px 0px;
+    display: flex;
+    align-items: center;
+}
+
+.class-info-chip-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.mdui-chip {
+    margin-left: 10px;
+}
+
+.class-page {
+    margin-top: 120px;
+    margin-bottom: 30px;
+}
+
+
+.class-info>* p {
+    display: inline-block;
+    padding-left: 20px;
+    margin: 10px 0px 10px 0px;
+}
+
+.class-info {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.class-recommand-button {
+    margin: 20px 0px 20px 0px;
+}
+
+.class-recommand-button>button {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.class-commit-title {
+    margin-top: 50px;
+}
+
+.class-commit-body {
+    margin: 10px;
+}
+
+.class-teacher-container {
+    margin-left: 70px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.class-teacher-subtit {
+    margin-left: 15px;
+}
+
+.class-subtable {
+    margin-bottom: 10px;
+}
+
+.commit-star {
+    font-size: 15px;
+}
+
+.commit-title {
+    display: flex;
+    align-items: center;
+}
+
+.commit-eachother {
+    font-size: 10px;
+    color: gray;
+    float: right;
+}
+
+.commit-eachother>.mdui-btn-icon {
+    height: 25px;
+    width: 25px;
+    min-width: 25px;
+    margin-right: 20px;
+}
+
+.commit-icons {
+    font-size: 20px;
+}
+
+.commit-inner {
+    padding-bottom: 5px;
+}
+
+.class-num-dis {
+    display: none;
+}
+
+.class-teacher-dis {
+    margin: 15px 0px 20px 15px;
+    display: none;
+}
+
+.class-dis-star {
+    display: flex;
+    align-items: center;
+    color: gray;
+}
+
+@media(max-width:1024px) {
+    .class-teacher-container {
+        display: none;
+    }
+
+    .class-teacher-dis {
+        display: block;
+    }
+}
+
+
+@media(max-width:680px) {
+    .class-star-inf>.mdui-icon {
+        display: none;
+    }
+
+    .class-number {
+        display: none;
+    }
+
+    .class-num-dis {
+        display: block;
+    }
+
+    .class-page {
+        margin-top: 100px;
+    }
+}
+
+@media(max-width:600px) {
+    .class-page {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 80px;
+
+}
+.class-recommand-button>button {
+    display: block;
+    width:80%;
+}
+.class-recommand-button {
+    margin-left:10%;
+    margin-right:10%;
+}
+}

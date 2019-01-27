@@ -1,0 +1,96 @@
+.limit-length {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80vw;
+  }
+
+  .mdui-card {
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+
+  .mdui-card:hover {
+    transform: scale(1.05);
+    transition-property: transform;
+    transition-duration: 200ms;
+  }
+
+  .class-star {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .class-star>strong {
+    font-size: 28px;
+    color: #494949;
+    font-weight: normal;
+    display: inline;
+    margin-left: 20px;
+  }
+
+  .star-icon {
+    color: #494949;
+  }
+
+  .index-star {
+    font-size: 20px;
+  }
+
+  .mdui-container-fluid {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }
+
+  .mdui-panel-item {
+    border-radius: 2%;
+
+  }
+
+  .item-in-panel {
+    display: flex;
+    padding: 5px 5px 5px 5px;
+    align-items: center;
+  }
+
+  .hot-search-num-1 {
+    font-size: 40px;
+    font-style: normal;
+  }
+
+  .hot-search-num-2 {
+    font-size: 30px;
+    font-style: normal;
+  }
+
+  .hot-search-num-3 {
+    font-size: 20px;
+    font-style: normal;
+  }
+  @media (max-width:450px) {
+    .star-icon {
+      display: none;
+    }
+
+    .mdui-card-content {
+      padding-top: 0px;
+    }
+
+    .mdui-card-header {
+      padding: 10px 10px 0px 10px;
+      height: 60px;
+    }
+
+    .mdui-container-fluid {
+      margin-top: 120px;
+      margin-bottom: 150px;
+    }
+
+    .index-right {
+      display: none;
+    }
+  }
