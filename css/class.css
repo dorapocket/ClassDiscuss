@@ -3,25 +3,6 @@
     background-color: white;
 }
 
-.class-body {
-    background-color: #f1f1f1;
-}
-
-.class-star-inf {
-    display: flex;
-    align-items: center;
-    color: #FFC400;
-}
-
-.df {
-    color: #FFAB00;
-}
-
-.class-star-inf>strong {
-    font-size: 30px;
-    margin-left: 10px;
-}
-
 .class-title {
     font-style: none;
     color: #494949;

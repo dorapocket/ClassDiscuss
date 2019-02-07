@@ -7,8 +7,8 @@
   <script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.2/js/mdui.min.js"></script>
   <link rel="stylesheet" href="css/mdui.min.css">
   <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/mc.css">
   <title>HDU评课系统</title>
-
 </head>
 
 <body class="mdui-bottom-nav-fixed" style="background-color:#f1f1f1;">
@@ -16,262 +16,250 @@
   <header class="mdui-appbar mdui-appbar-fixed">
     <div class="mdui-toolbar mdui-color-indigo">
       <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
-      <a href="javascript:;" class="mdui-typo-title">HDU评课社区</a>
+      <a href="javascript:;" class="mdui-typo-title" id="toobartit">HDU评课社区</a>
       <div class="mdui-toolbar-spacer"></div>
-      <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
-      <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>
-      <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>
-    </div>
-    <div class="mdui-tab mdui-color-indigo" mdui-tab>
-      <a href="#example3-tab1" class="mdui-ripple mdui-ripple-white">最近评论</a>
-      <a href="#example3-tab1" class="mdui-ripple mdui-ripple-white">最火老师</a>
-      <a href="#example3-tab1" class="mdui-ripple mdui-ripple-white">最热课程</a>
+      <div class="mdui-textfield mdui-textfield-expandable mdui-float-right searchbox">
+          <button class="mdui-textfield-icon mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></button>
+          <input class="mdui-textfield-input" type="text" placeholder="Search"/>
+          <button class="mdui-textfield-close mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">close</i></button>
+        </div>
+      <button class="login-btn mdui-btn mdui-btn-dense mdui-ripple mdui-ripple-white" onclick="showlogin();">登录</button>
+      <button class="reg-btn mdui-btn mdui-btn-dense mdui-ripple mdui-ripple-white" onclick="showreg();">注册</button>
     </div>
   </header>
   <!--导航菜单 结束-->
 
   <!--主体框架开始 GRID-->
-  <div class="mdui-container-fluid">
-    <div class="mdui-row">
-      <!--评价部分（左栏） 开始-->
-      <div class="mdui-col-md-6 mdui-col-offset-md-1 mdui-col-sm-8 ">
-        <!--评价卡片个体 开始-->
-        <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-          <!-- 卡片头部，头像 日期 星级  -->
-          <div class="mdui-card-header">
-            <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
-            <div class="mdui-card-header-title">Title</div>
-            <div class="mdui-card-header-subtitle">Subtitle</div>
-            <!--星级评定-->
-            <div class="class-star">
-              <div class="star-icon">
-                <i class="mdui-icon material-icons index-star">star</i>
-                <i class="mdui-icon material-icons index-star">star</i>
-                <i class="mdui-icon material-icons index-star">star</i>
-                <i class="mdui-icon material-icons index-star">star_half</i>
-                <i class="mdui-icon material-icons index-star">star_border</i>
+  <div id="recent">
+    <div class="mdui-container-fluid">
+      <div class="mdui-row">
+        <!--评价部分（左栏） 开始-->
+        <div class="mdui-col-md-6 mdui-col-offset-md-1 mdui-col-sm-8 ">
+          <!--评价卡片个体 开始-->
+          <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
+            <!-- 卡片头部，头像 日期 星级  -->
+            <div class="mdui-card-header">
+              <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
+              <div class="mdui-card-header-title">Title</div>
+              <div class="mdui-card-header-subtitle">Subtitle</div>
+              <!--星级评定-->
+              <div class="class-star">
+                <div class="star-icon">
+                  <i class="mdui-icon material-icons index-star">star</i>
+                  <i class="mdui-icon material-icons index-star">star</i>
+                  <i class="mdui-icon material-icons index-star">star</i>
+                  <i class="mdui-icon material-icons index-star">star_half</i>
+                  <i class="mdui-icon material-icons index-star">star_border</i>
+                </div>
+                <strong>5.2</strong>
               </div>
-              <strong>5.2</strong>
             </div>
+            <!--评价内容-->
+            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
           </div>
-          <!--评价内容-->
-          <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
+          <!--评价卡片个体 结束-->
+
         </div>
-        <!--评价卡片个体 结束-->
-         <!--评价卡片个体 开始-->
-         <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-            <!-- 卡片头部，头像 日期 星级  -->
-            <div class="mdui-card-header">
-              <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
-              <div class="mdui-card-header-title">Title</div>
-              <div class="mdui-card-header-subtitle">Subtitle</div>
-              <!--星级评定-->
-              <div class="class-star">
-                <div class="star-icon">
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star_half</i>
-                  <i class="mdui-icon material-icons index-star">star_border</i>
+        <!--评价部分（左栏） 结束-->
+        <!--排行部分（右栏） 开始-->
+        <div class="mdui-col-md-3 mdui-col-offset-md-1 mdui-col-sm-4  index-right">
+          <!--常开面板 课程热搜榜 开始-->
+          <div class="mdui-panel" mdui-panel>
+            <div class="mdui-panel-item  mdui-panel-item-open mdui-hoverable">
+              <div class="mdui-panel-item-header"><i class="mdui-icon material-icons">format_list_numbered</i>课程热搜榜</div>
+              <div class="mdui-panel-item-body">
+                <div class="item-in-panel">
+                  <strong class="hot-search-num-1">1.</strong>
+                  <p style="display:inline;font-size:20px;margin:5px 5px 5px 5px;">测试课程1</p>
                 </div>
-                <strong>5.2</strong>
-              </div>
-            </div>
-            <!--评价内容-->
-            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
-          </div>
-          <!--评价卡片个体 结束-->
-           <!--评价卡片个体 开始-->
-        <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-            <!-- 卡片头部，头像 日期 星级  -->
-            <div class="mdui-card-header">
-              <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
-              <div class="mdui-card-header-title">Title</div>
-              <div class="mdui-card-header-subtitle">Subtitle</div>
-              <!--星级评定-->
-              <div class="class-star">
-                <div class="star-icon">
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star_half</i>
-                  <i class="mdui-icon material-icons index-star">star_border</i>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num-2">2.</strong>
+                  <p style="display:inline;font-size:18px;margin:5px 5px 5px 5px;">测试课程1</p>
                 </div>
-                <strong>5.2</strong>
-              </div>
-            </div>
-            <!--评价内容-->
-            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
-          </div>
-          <!--评价卡片个体 结束-->
-           <!--评价卡片个体 开始-->
-        <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-            <!-- 卡片头部，头像 日期 星级  -->
-            <div class="mdui-card-header">
-              <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
-              <div class="mdui-card-header-title">Title</div>
-              <div class="mdui-card-header-subtitle">Subtitle</div>
-              <!--星级评定-->
-              <div class="class-star">
-                <div class="star-icon">
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star_half</i>
-                  <i class="mdui-icon material-icons index-star">star_border</i>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num-3">3.</strong>
+                  <p style="display:inline;font-size:16px;margin:5px 5px 5px 5px;">测试课程1</p>
                 </div>
-                <strong>5.2</strong>
-              </div>
-            </div>
-            <!--评价内容-->
-            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
-          </div>
-          <!--评价卡片个体 结束-->
-           <!--评价卡片个体 开始-->
-        <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-            <!-- 卡片头部，头像 日期 星级  -->
-            <div class="mdui-card-header">
-              <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
-              <div class="mdui-card-header-title">Title</div>
-              <div class="mdui-card-header-subtitle">Subtitle</div>
-              <!--星级评定-->
-              <div class="class-star">
-                <div class="star-icon">
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star_half</i>
-                  <i class="mdui-icon material-icons index-star">star_border</i>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num">4.</strong>
+                  <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
                 </div>
-                <strong>5.2</strong>
-              </div>
-            </div>
-            <!--评价内容-->
-            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
-          </div>
-          <!--评价卡片个体 结束-->
-           <!--评价卡片个体 开始-->
-        <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-            <!-- 卡片头部，头像 日期 星级  -->
-            <div class="mdui-card-header">
-              <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
-              <div class="mdui-card-header-title">Title</div>
-              <div class="mdui-card-header-subtitle">Subtitle</div>
-              <!--星级评定-->
-              <div class="class-star">
-                <div class="star-icon">
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star_half</i>
-                  <i class="mdui-icon material-icons index-star">star_border</i>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num">5.</strong>
+                  <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
                 </div>
-                <strong>5.2</strong>
-              </div>
-            </div>
-            <!--评价内容-->
-            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
-          </div>
-          <!--评价卡片个体 结束-->
-      </div>
-      <!--评价部分（左栏） 结束-->
-      <!--排行部分（右栏） 开始-->
-      <div class="mdui-col-md-3 mdui-col-offset-md-1 mdui-col-sm-4  index-right">
-        <!--常开面板 课程热搜榜 开始-->
-        <div class="mdui-panel" mdui-panel>
-          <div class="mdui-panel-item  mdui-panel-item-open mdui-hoverable">
-            <div class="mdui-panel-item-header"><i class="mdui-icon material-icons">format_list_numbered</i>课程热搜榜</div>
-            <div class="mdui-panel-item-body">
-              <div class="item-in-panel">
-                <strong class="hot-search-num-1">1.</strong>
-                <p style="display:inline;font-size:20px;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num-2">2.</strong>
-                <p style="display:inline;font-size:18px;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num-3">3.</strong>
-                <p style="display:inline;font-size:16px;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num">4.</strong>
-                <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num">5.</strong>
-                <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num">6.</strong>
-                <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num">6.</strong>
+                  <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
               </div>
             </div>
           </div>
+          <!--常开面板 课程热搜榜 结束-->
+          <!--常开面板 课程巅峰榜 开始-->
+          <div class="mdui-panel" mdui-panel>
+            <div class="mdui-panel-item  mdui-panel-item-open mdui-hoverable">
+              <div class="mdui-panel-item-header"><i class="mdui-icon material-icons">format_list_numbered</i>课程巅峰榜</div>
+              <div class="mdui-panel-item-body">
+                <div class="item-in-panel">
+                  <strong class="hot-search-num-1">1.</strong>
+                  <p style="display:inline;font-size:20px;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num-2">2.</strong>
+                  <p style="display:inline;font-size:18px;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num-3">3.</strong>
+                  <p style="display:inline;font-size:16px;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num">4.</strong>
+                  <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num">5.</strong>
+                  <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
+                <div class="mdui-divider"></div>
+                <div class="item-in-panel">
+                  <strong class="hot-search-num">6.</strong>
+                  <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--常开面板 课程巅峰榜 结束-->
         </div>
-        <!--常开面板 课程热搜榜 结束-->
-        <!--常开面板 课程巅峰榜 开始-->
-        <div class="mdui-panel" mdui-panel>
-          <div class="mdui-panel-item  mdui-panel-item-open mdui-hoverable">
-            <div class="mdui-panel-item-header"><i class="mdui-icon material-icons">format_list_numbered</i>课程巅峰榜</div>
-            <div class="mdui-panel-item-body">
-              <div class="item-in-panel">
-                <strong class="hot-search-num-1">1.</strong>
-                <p style="display:inline;font-size:20px;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num-2">2.</strong>
-                <p style="display:inline;font-size:18px;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num-3">3.</strong>
-                <p style="display:inline;font-size:16px;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num">4.</strong>
-                <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num">5.</strong>
-                <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-              <div class="mdui-divider"></div>
-              <div class="item-in-panel">
-                <strong class="hot-search-num">6.</strong>
-                <p style="display:inline;margin:5px 5px 5px 5px;">测试课程1</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--常开面板 课程巅峰榜 结束-->
       </div>
     </div>
   </div>
 
+  <!--登陆 注册等 开始-->
+  <div id="login" class="mc-login mdui-dialog" style="top: 227.6px; display: block; height: 540.8px;"><button class="mdui-btn mdui-btn-icon mdui-text-color-white close"><i
+    class="mdui-icon material-icons" onclick="closeall();">close</i></button>
+<div class="mdui-dialog-title mdui-color-indigo">登录</div>
+<form>
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom mdui-textfield-invalid-html5"><label
+      class="mdui-textfield-label">用户名或邮箱</label><input class="mdui-textfield-input" name="name" type="text"
+      required="">
+    <div class="mdui-textfield-error">账号不能为空</div>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom"><label class="mdui-textfield-label">密码</label><input
+      class="mdui-textfield-input" name="password" type="password" required="">
+    <div class="mdui-textfield-error">密码不能为空</div>
+  </div>
+  <div class="actions mdui-clearfix"><button class="mdui-btn mdui-ripple more-option" type="button" mdui-menu="{target: '#mc-login-menu', position: 'top', covered: true}">更多选项</button>
+    <ul class="mdui-menu" id="mc-login-menu">
+      <li class="mdui-menu-item"><a id="lires" class="mdui-ripple mc-password-reset-trigger">忘记密码</a></li>
+      <li class="mdui-menu-item"><a id="lireg" class="mdui-ripple mc-register-trigger">创建新账号</a></li>
+    </ul><button type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-float-right">登录</button>
+  </div>
+</form>
+</div>
+
+<div id="reg" class="mc-register mdui-dialog"><button  onclick="closeall();" class="mdui-btn mdui-btn-icon mdui-text-color-white close"><i class="mdui-icon material-icons">close</i></button>
+<div class="mdui-dialog-title mdui-color-green mdui-text-color-white">创建新账号</div>
+<form class="">
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom"><label class="mdui-textfield-label">邮箱</label><input
+      class="mdui-textfield-input" name="email" type="email" required="">
+    <div class="mdui-textfield-error">邮箱格式错误</div>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom send-email-field">
+    <labe class="mdui-textfield-label">邮件验证码</labe><input class="mdui-textfield-input" name="email_code" type="text"
+      required="">
+    <div class="mdui-textfield-error">验证码不能为空</div><button class="mdui-btn send-email" type="button">发送验证码</button>
+  </div>
+  <div class="actions">
+    <div id="reglog" class="mdui-btn mdui-ripple more-option mc-login-trigger">已有账号？</div><button type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-float-right">下一步</button>
+  </div>
+</form>
+<form class="mdui-hidden">
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom"><label class="mdui-textfield-label">用户名</label><input
+      class="mdui-textfield-input" name="username" type="text" required="">
+    <div class="mdui-textfield-error">用户名不能为空</div>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom"><label class="mdui-textfield-label">密码</label><input
+      class="mdui-textfield-input" name="password" type="password" required="">
+    <div class="mdui-textfield-error">密码不能为空</div>
+  </div>
+  <div class="actions mdui-clearfix"><button type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-float-right">注册</button></div>
+</form>
+</div>
+
+<div id="reset" class="mc-reset mdui-dialog" style="display: none; top: 227.6px; height: 540.8px;"><button onclick="closeall();" class="mdui-btn mdui-btn-icon mdui-text-color-white close"><i
+    class="mdui-icon material-icons">close</i></button>
+<div class="mdui-dialog-title mdui-color-deep-orange mdui-text-color-white">重置密码</div>
+<form class="">
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom mdui-textfield-invalid-html5"><label
+      class="mdui-textfield-label">邮箱</label><input class="mdui-textfield-input" name="email" type="email" required="">
+    <div class="mdui-textfield-error">邮箱格式错误</div>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom send-email-field"><label class="mdui-textfield-label">邮件验证码</label><input
+      class="mdui-textfield-input" name="email_code" type="text" required="">
+    <div class="mdui-textfield-error">验证码不能为空</div><button class="mdui-btn send-email" type="button">发送验证码</button>
+  </div>
+  <div class="actions"><button type="button" class="mdui-btn mdui-ripple more-option" mdui-menu="{target: '#mc-password-reset-menu', position: 'top', covered: true}">更多选项</button>
+    <ul class="mdui-menu" id="mc-password-reset-menu">
+      <li class="mdui-menu-item"><a class="mdui-ripple mc-login-trigger" onclick="closeall();showlogin();">登录账号</a></li>
+      <li class="mdui-menu-item"><a class="mdui-ripple mc-register-trigger" onclick="closeall();showreg();">创建新账号</a></li>
+    </ul><button type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-float-right">下一步</button>
+  </div>
+</form>
+<form class="mdui-hidden">
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom"><label class="mdui-textfield-label">新密码</label><input
+      class="mdui-textfield-input" name="password" type="password" required="">
+    <div class="mdui-textfield-error">密码不能为空</div>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label mdui-textfield-has-bottom"><label class="mdui-textfield-label">重复新密码</label><input
+      class="mdui-textfield-input" name="password_repeat" type="password" required="">
+    <div class="mdui-textfield-error">密码不能为空</div>
+  </div>
+  <div class="actions mdui-clearfix"><button type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-float-right">提交</button></div>
+</form>
+</div>
+
+<script>
+  var regmain=new mdui.Dialog("#reg");
+  var loginmain=new mdui.Dialog("#login");
+  var resetmain=new mdui.Dialog("#reset");
+  function showreg(){
+    regmain.open();
+  }
+  function showlogin(){
+    loginmain.open();
+  }
+  function showreset(){
+    resetmain.open();
+  }
+  document.getElementById("lireg").addEventListener("click",function(){loginmain.close();regmain.open();});
+  document.getElementById("lires").addEventListener("click",function(){loginmain.close();resetmain.open();});
+  document.getElementById("reglog").addEventListener("click",function(){regmain.close();loginmain.open();});
+  function closeall(){
+    regmain.close();
+    loginmain.close();
+    resetmain.close();
+  }
+  document.getElementById("searchbutton").addEventListener("click",function(){document.getElementById("toobartit").style.display="none";})
+</script>
+<!--登陆 注册等 结束-->
 
 
 
 
 
   <!--底部菜单 开始-->
-  <footer class="mdui-bottom-nav mdui-bottom-nav-text-auto mdui-shadow-5" style="background-color: white;">
-    <a href="javascript:;" class="mdui-ripple mdui-bottom-nav-active">
-      <i class="mdui-icon material-icons">chat</i>
-      <label>广场</label>
-    </a>
-    <a href="javascript:;" class="mdui-ripple">
-      <i class="mdui-icon material-icons">account_circle</i>
-      <label>我的</label>
-    </a>
+  <footer>
+
   </footer>
   <!--底部菜单 结束-->
 </body>

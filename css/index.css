@@ -34,7 +34,7 @@
   }
 
   .star-icon {
-    color: #494949;
+    color: #ffc400;
   }
 
   .index-star {
@@ -42,7 +42,7 @@
   }
 
   .mdui-container-fluid {
-    margin-top: 150px;
+    margin-top: 100px;
     margin-bottom: 150px;
   }
 
@@ -71,6 +71,30 @@
     font-size: 20px;
     font-style: normal;
   }
+  .login-btn{
+    min-width: 50px;
+  }
+  .reg-btn{
+    min-width: 50px;
+  }
+  #shadow-cover{
+    float: left;
+    width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.397);
+  z-index: 2000;
+  position: fixed;
+  left:0px;
+  top:0px;
+
+  }
+  .mc-login{
+    max-width: 448px;
+    overflow-y: auto;
+  }
+  .searchbox{
+    max-width: 40%;
+  }
   @media (max-width:450px) {
     .star-icon {
       display: none;
@@ -86,11 +110,12 @@
     }
 
     .mdui-container-fluid {
-      margin-top: 120px;
+      margin-top: 80px;
       margin-bottom: 150px;
     }
 
     .index-right {
       display: none;
     }
+
   }

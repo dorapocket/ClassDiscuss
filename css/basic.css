@@ -1,0 +1,28 @@
+body {
+    background-color: #f1f1f1;
+}
+.main-container{
+    margin-top:130px;
+    margin-bottom:50px;
+    border-radius: 5px;
+}
+.basic-col{
+    border-radius: 10px;
+    background-color:white;
+}
+.class-star-inf{
+    display: flex;
+    align-items: center;
+    color: #FFC400;
+}
+.df {
+    color: #FFAB00;
+}
+
+.class-star-inf>strong {
+    font-size: 30px;
+    margin-left: 10px;
+}
+strong,h1,h2,h3{
+    color:#494949!important;
+}
