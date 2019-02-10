@@ -6,26 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.2/js/mdui.min.js"></script>
-    <link rel="stylesheet" href="css/mdui.min.css">
+    <link rel="stylesheet" href="../css/mdui.min.css">
     <title>高等数学A1</title>
-    <link rel="stylesheet" href="css/class.css">
-    <link rel="stylesheet" href="css/basic.css">
-    <link rel="stylesheet" href="css/mc.css">
+    <link rel="stylesheet" href="../css/class.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/mc.css">
 
 </head>
 
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
     <!--网页固定头部工具栏 开始-->
-    <header class="mdui-appbar mdui-appbar-fixed">
-        <div class="mdui-toolbar mdui-color-theme">
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
-            <span class="mdui-typo-title">高等数学A1</span>
-            <div class="mdui-toolbar-spacer"></div>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>
-        </div>
-    </header>
+    <?php include"header.php" ?>
     <!--网页固定头部工具栏 结束-->
 
     <!--网页主体 开始-->
@@ -107,7 +98,7 @@
                 <div class="mdui-divider"></div>
                 <div class="mdui-row class-teacher-dis">
                     <div class="mdui-col-sm-2">
-                        <img class="mdui-img-circle" src="img/avatar1.jpg" width="80px" />
+                        <img class="mdui-img-circle" src="../img/avatar1.jpg" width="80px" />
                     </div>
                     <div class="mdui-col-sm-10">
                         <div class="class-dis-star">
@@ -145,7 +136,7 @@
                         <div class="mdui-card mdui-shadow-0 class-commit-body" style="border-radius: 10px;">
                             <!-- 卡片头部，头像 日期-->
                             <div class="mdui-card-header">
-                                <img class="mdui-card-header-avatar" src="img/avatar1.jpg" />
+                                <img class="mdui-card-header-avatar" src="../img/avatar1.jpg" />
                                 <div class="mdui-card-header-title commit-title">路人甲</div>
                                 <div class="mdui-card-header-subtitle">2019/1/27<div class="commit-star-container">
                                         <i class="mdui-icon material-icons commit-star">star</i>
@@ -194,11 +185,11 @@
                     <!--任课教师信息 好评率等 开始-->
                     <div class="mdui-col-md-12">
                         <div class="mdui-card-media">
-                            <img src="img/avatar1.jpg" />
+                            <img src="../img/avatar1.jpg" />
                             <div class="mdui-card-media-covered mdui-card-media-covered-gradient">
                                 <div class="mdui-card-primary">
                                     <div class="mdui-card-primary-title">哈哈哈老师(理学院)</div>
-                                    <div class="mdui-card-primary-subtitle">
+                                    <div class="mdui-card-primary-subtitle teacherstar">
                                         <i class="mdui-icon material-icons">star</i>
                                         <i class="mdui-icon material-icons">star</i>
                                         <i class="mdui-icon material-icons">star</i>
@@ -336,8 +327,9 @@
                 </div>
             </form>
             <!--这个js有星星变化、提交检测有没有填完-->
-            <script src="js/class-writecheck.js"></script>
+            <script src="../js/class-writecheck.js"></script>
             <!--评价dialog 结束-->
+            </div>
 </body>
 
 </html>

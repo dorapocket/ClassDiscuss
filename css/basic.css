@@ -32,3 +32,6 @@ strong,h1,h2,h3{
     align-items: center;
     justify-content: center;
 }
+.searchbox{
+    max-width: 40%;
+}

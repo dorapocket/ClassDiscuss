@@ -95,9 +95,7 @@
     max-width: 448px;
     overflow-y: auto;
   }
-  .searchbox{
-    max-width: 40%;
-  }
+  
   @media (max-width:450px) {
     .star-icon {
       display: none;

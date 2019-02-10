@@ -2,7 +2,9 @@
     border-radius: 5px;
     background-color: white;
 }
-
+.teacherstar>i{
+    color:#FFC400;
+}
 .class-title {
     font-style: none;
     color: #494949;
