@@ -10,6 +10,8 @@
     <title>高等数学A1</title>
     <link rel="stylesheet" href="css/class.css">
     <link rel="stylesheet" href="css/basic.css">
+    <link rel="stylesheet" href="css/mc.css">
+
 </head>
 
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
@@ -25,6 +27,7 @@
         </div>
     </header>
     <!--网页固定头部工具栏 结束-->
+
     <!--网页主体 开始-->
     <div class="mdui-container-fluid class-page">
         <div class="mdui-row">
@@ -36,7 +39,8 @@
                         <h1 class="class-title">高等数学A1</h1>
                         <p class="class-number">选课课号：A0000000</p>
                     </div>
-                    <div class="mdui-col-md-3 mdui-col-sm-3 mdui-col-offset-sm-2 mdui-col-xs-4 mdui-col-offset-md-2 class-star-inf">
+                    <div
+                        class="mdui-col-md-3 mdui-col-sm-3 mdui-col-offset-sm-2 mdui-col-xs-4 mdui-col-offset-md-2 class-star-inf">
                         <i class="mdui-icon material-icons">star</i>
                         <i class="mdui-icon material-icons">star</i>
                         <i class="mdui-icon material-icons">star</i>
@@ -85,9 +89,18 @@
                 <div class="mdui-row">
                     <div class="mdui-col-md-12">
                         <div class="class-recommand-button">
-                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">thumb_up</i>推荐</button>
-                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">thumb_down</i>不推荐</button>
-                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">turned_in_not</i>收藏</button>
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><i
+                                    class="mdui-icon material-icons">thumb_up</i>顶</button>
+                            <!--<button class="mdui-btn mdui-ripple"><i
+                                    class="mdui-icon material-icons">thumb_up</i>已顶</button>-->
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><i
+                                    class="mdui-icon material-icons">thumb_down</i>踩</button>
+                            <!--<button class="mdui-btn mdui-ripple"><i
+                                    class="mdui-icon material-icons">thumb_up</i>已踩</button>-->
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><i
+                                    class="mdui-icon material-icons">turned_in_not</i>收藏</button>
+                            <!--<button class="mdui-btn mdui-ripple"><i
+                                    class="mdui-icon material-icons">thumb_up</i>已收藏</button>-->
                         </div>
                     </div>
                 </div>
@@ -104,7 +117,8 @@
                             <i class="mdui-icon material-icons">star_half</i>
                             <i class="mdui-icon material-icons">star_border</i>
                             <strong style="font-size:20px;">&nbsp&nbsp7.4</strong></div>
-                        <p><strong>姓名：</strong>哈哈哈&nbsp&nbsp&nbsp&nbsp&nbsp<strong>点名率：</strong>0%&nbsp&nbsp&nbsp&nbsp&nbsp<strong>课程好评率：</strong>99%</p>
+                        <p><strong>姓名：</strong>哈哈哈&nbsp&nbsp&nbsp&nbsp&nbsp<strong>点名率：</strong>0%&nbsp&nbsp&nbsp&nbsp&nbsp<strong>课程好评率：</strong>99%
+                        </p>
 
 
                     </div>
@@ -113,11 +127,13 @@
                 <!--点评部分 开始-->
                 <!--点评大标题 头部-->
                 <div class="mdui-row class-commit-title">
-                    <div class="mdui-col-md-12" style="display: flex; justify-content:space-between;align-content: center;">
+                    <div class="mdui-col-md-12"
+                        style="display: flex; justify-content:space-between;align-content: center;">
                         <h1 class="class-title">点评</h1>
 
 
-                        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" style="float:none;position:absolute;top:20%;right:10%;"><i
+                        <button id="write" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"
+                            style="float:none;position:absolute;top:20%;right:10%;"><i
                                 class="mdui-icon material-icons">add</i>写评论</button>
                     </div>
                 </div>
@@ -144,9 +160,15 @@
                             <!--评价内容-->
                             <div class="mdui-card-content commit-inner">高数好啊！太好了！我十分喜欢！</div>
                             <div class="commit-eachother">
-                                <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons commit-icons">thumb_up</i></button>
-                                <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons commit-icons">thumb_down</i></button>
-                                <button class="mdui-btn mdui-btn-dense mdui-color-white mdui-ripple"><i class="mdui-icon material-icons commit-icons">error_outline</i>举报</button>
+                                <button class="mdui-btn mdui-btn-icon"><i
+                                        class="mdui-icon material-icons commit-icons">thumb_up</i></button>
+                                <p>0</p>
+                                <button class="mdui-btn mdui-btn-icon"><i
+                                        class="mdui-icon material-icons commit-icons">thumb_down</i></button>
+                                <p>0</p>
+                                <button class="mdui-btn mdui-btn-dense mdui-color-white mdui-ripple"
+                                    mdui-dialog="{target: '#report'}"><i
+                                        class="mdui-icon material-icons commit-icons">error_outline</i>举报</button>
                             </div>
                         </div>
                         <!--评价卡片个体 结束-->
@@ -158,6 +180,7 @@
                 <!--点评部分 结束-->
             </div>
             <!--左栏 课程详细信息 结束-->
+
             <!--右栏 任课教师信息 开始-->
             <div class="mdui-col-md-3 mdui-col-offset-md-1 class-teacher-container mdui-shadow-9 basic-col">
                 <div class="mdui-row">
@@ -171,7 +194,7 @@
                     <!--任课教师信息 好评率等 开始-->
                     <div class="mdui-col-md-12">
                         <div class="mdui-card-media">
-                            <img src="img/avatar1.jpg"/>
+                            <img src="img/avatar1.jpg" />
                             <div class="mdui-card-media-covered mdui-card-media-covered-gradient">
                                 <div class="mdui-card-primary">
                                     <div class="mdui-card-primary-title">哈哈哈老师(理学院)</div>
@@ -227,6 +250,94 @@
     </div>
     <!--网页主体 结束-->
     </div>
+    <!--举报对话框-->
+    <div class="mdui-dialog" id="report">
+        <div class="mdui-dialog-title">确定?</div>
+        <div class="mdui-dialog-content">真的要举报这个答案吗?</div>
+        <div class="mdui-dialog-actions">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-close>再想想</button>
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>举报</button>
+        </div>
+    </div>
+    <!--评价dialog 开始-->
+    <div id="dialogcontainer">
+        <div id="commitdialog" class="mc-login mdui-dialog">
+            <button id="closebutton" class="mdui-btn mdui-btn-icon mdui-text-color-white close"><i
+                    class="mdui-icon material-icons">close</i></button>
+            <div class="mdui-dialog-title mdui-color-indigo">发表我的看法</div>
+            <form action="hhcs.html" method="get" onsubmit="return validate_form(this)" id="commitform">
+                <div id="commit-star-group" class="stg">
+                    <h4>综合评分：</h3>
+                        <div id="a1">
+                            <i id="star01" class="mdui-icon material-icons">star_border</i>
+                            <i id="star02" class="mdui-icon material-icons">star_border</i>
+                            <i id="star03" class="mdui-icon material-icons">star_border</i>
+                            <i id="star04" class="mdui-icon material-icons">star_border</i>
+                            <i id="star05" class="mdui-icon material-icons">star_border</i></div>
+                        <h3 id="startext0">
+                            </h1>
+                </div>
+                <div id="commit-star-difficulty" class="stg">
+                    <h4>课程难度：</h3>
+                        <div id="a2">
+                            <i id="star11" class="mdui-icon material-icons">star_border</i>
+                            <i id="star12" class="mdui-icon material-icons">star_border</i>
+                            <i id="star13" class="mdui-icon material-icons">star_border</i>
+                            <i id="star14" class="mdui-icon material-icons">star_border</i>
+                            <i id="star15" class="mdui-icon material-icons">star_border</i></div>
+                        <h3 id="startext1">
+                            </h1>
+                </div>
+                <div id="commit-star-gets" class="stg">
+                    <h4>收获大小：</h3>
+                        <div id="a3">
+                            <i id="star21" class="mdui-icon material-icons">star_border</i>
+                            <i id="star22" class="mdui-icon material-icons">star_border</i>
+                            <i id="star23" class="mdui-icon material-icons">star_border</i>
+                            <i id="star24" class="mdui-icon material-icons">star_border</i>
+                            <i id="star25" class="mdui-icon material-icons">star_border</i></div>
+                        <h3 id="startext2">
+                            </h1>
+                </div>
+                <div id="commit-star-gets" class="stg">
+                    <h4>给分好坏：</h3>
+                        <div id="a4">
+                            <i id="star31" class="mdui-icon material-icons">star_border</i>
+                            <i id="star32" class="mdui-icon material-icons">star_border</i>
+                            <i id="star33" class="mdui-icon material-icons">star_border</i>
+                            <i id="star34" class="mdui-icon material-icons">star_border</i>
+                            <i id="star35" class="mdui-icon material-icons">star_border</i></div>
+                        <h3 id="startext3">
+                            </h1>
+                </div>
+                <div id="commit-star-gets" class="stg">
+                    <h4>作业多少：</h3>
+                        <div id="a5">
+                            <i id="star41" class="mdui-icon material-icons">star_border</i>
+                            <i id="star42" class="mdui-icon material-icons">star_border</i>
+                            <i id="star43" class="mdui-icon material-icons">star_border</i>
+                            <i id="star44" class="mdui-icon material-icons">star_border</i>
+                            <i id="star45" class="mdui-icon material-icons">star_border</i></div>
+                        <h3 id="startext4">
+                            </h1>
+                </div>
+                <div class="mdui-textfield mdui-textfield-floating-label" style="margin:0px 20px 10px 20px;">
+                    <label class="mdui-textfield-label">我的看法(200字以内)</label>
+                    <textarea class="mdui-textfield-input" form="commitform" name="committext"
+                        onpropertychange="if(value.length>200) value=value.substr(0,200)"></textarea>
+                </div>
+                <input type="hidden" id="allscore" name="allscore" value="">
+                <input type="hidden" id="difficulty" name="difficulty" value="">
+                <input type="hidden" id="getsinfo" name="getsinfo" value="">
+                <input type="hidden" id="betterscore" name="betterscore" value="">
+                <input type="hidden" id="homework" name="homework" value="">
+                <div class="centercontainer">
+                    <input type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent cmbtn" value="发表">
+                </div>
+            </form>
+            <!--这个js有星星变化、提交检测有没有填完-->
+            <script src="js/class-writecheck.js"></script>
+            <!--评价dialog 结束-->
 </body>
 
 </html>

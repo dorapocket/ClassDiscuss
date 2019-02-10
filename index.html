@@ -145,6 +145,7 @@
   </div>
 
   <!--登陆 注册等 开始-->
+  <div id="dialogcontainer">
   <div id="login" class="mc-login mdui-dialog" style="top: 227.6px; display: block; height: 540.8px;"><button class="mdui-btn mdui-btn-icon mdui-text-color-white close"><i
     class="mdui-icon material-icons" onclick="closeall();">close</i></button>
 <div class="mdui-dialog-title mdui-color-indigo">登录</div>
@@ -227,24 +228,34 @@
   <div class="actions mdui-clearfix"><button type="submit" class="mdui-btn mdui-btn-raised mdui-color-theme-accent mdui-float-right">提交</button></div>
 </form>
 </div>
-
+</div>
 <script>
   var regmain=new mdui.Dialog("#reg");
   var loginmain=new mdui.Dialog("#login");
   var resetmain=new mdui.Dialog("#reset");
+  function displayok(){
+    document.getElementById("dialogcontainer").style.display="block";
+  }
+  function displayno(){
+    document.getElementById("dialogcontainer").style.display="none";
+  }
   function showreg(){
+    displayok();
     regmain.open();
   }
   function showlogin(){
+    displayok();
     loginmain.open();
   }
   function showreset(){
+    displayok();
     resetmain.open();
   }
   document.getElementById("lireg").addEventListener("click",function(){loginmain.close();regmain.open();});
   document.getElementById("lires").addEventListener("click",function(){loginmain.close();resetmain.open();});
   document.getElementById("reglog").addEventListener("click",function(){regmain.close();loginmain.open();});
   function closeall(){
+    displayno();
     regmain.close();
     loginmain.close();
     resetmain.close();

@@ -88,6 +88,9 @@
   top:0px;
 
   }
+  #dialogcontainer{
+    display:none;
+  }
   .mc-login{
     max-width: 448px;
     overflow-y: auto;
