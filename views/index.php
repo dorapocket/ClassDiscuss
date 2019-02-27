@@ -11,10 +11,10 @@
   <title>HDU评课系统</title>
 </head>
 
-<body class="mdui-bottom-nav-fixed" style="background-color:#f1f1f1;">
+<body class="mdui-bottom-nav-fixed" style="background-color:#f1f1f1;" id="body">
 
   <!--导航菜单 开始-->
-  <?php include"header.php"?>
+  <?php include "header.php"?>
   <!--导航菜单 结束-->
 
   <!--主体框架开始 GRID-->
@@ -23,30 +23,7 @@
       <div class="mdui-row">
         <!--评价部分（左栏） 开始-->
         <div class="mdui-col-md-6 mdui-col-offset-md-1 mdui-col-sm-8 ">
-          <!--评价卡片个体 开始-->
-          <div class="mdui-card mdui-shadow-10" style="border-radius: 10px;">
-            <!-- 卡片头部，头像 日期 星级  -->
-            <div class="mdui-card-header">
-              <img class="mdui-card-header-avatar" src="../img/avatar1.jpg" />
-              <div class="mdui-card-header-title">Title</div>
-              <div class="mdui-card-header-subtitle">Subtitle</div>
-              <!--星级评定-->
-              <div class="class-star">
-                <div class="star-icon">
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star</i>
-                  <i class="mdui-icon material-icons index-star">star_half</i>
-                  <i class="mdui-icon material-icons index-star">star_border</i>
-                </div>
-                <strong>5.2</strong>
-              </div>
-            </div>
-            <!--评价内容-->
-            <div class="mdui-card-content">子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」</div>
-          </div>
-          <!--评价卡片个体 结束-->
-
+        <?php include "index_main.php"?>
         </div>
         <!--评价部分（左栏） 结束-->
         <!--排行部分（右栏） 开始-->

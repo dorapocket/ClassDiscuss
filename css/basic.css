@@ -35,3 +35,7 @@ strong,h1,h2,h3{
 .searchbox{
     max-width: 40%;
 }
+a{
+    text-decoration: none;
+    color:black;
+}

@@ -1,3 +1,10 @@
+td{
+    border-bottom:0px!important;
+}
+table{
+    border:none!important;
+}
+
 .class-container {
     border-radius: 5px;
     background-color: white;
@@ -10,6 +17,7 @@
     color: #494949;
     padding-left: 30px;
     display: inline-block;
+    
 }
 #dialogcontainer{
     display:none;
@@ -202,6 +210,11 @@
         margin-right: 20px;
         margin-top: 80px;
 
+}
+@media(max-width:390px){
+    #commitform>div>div>i{
+        font-size:30px;
+    }
 }
 .class-recommand-button>button {
     display: block;

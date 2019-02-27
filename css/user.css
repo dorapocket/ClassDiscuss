@@ -1,0 +1,48 @@
+.module{
+    background-color: white;
+}
+.star-icon {
+    color: #ffc400;
+    display: inline-block;
+    margin-left:1%;
+    margin-top:1%;
+  }
+  .mdui-card {
+    margin-bottom:10px;
+  }
+  .mdui-card:hover {
+    transform: scale(1.05);
+    transition-property: transform;
+    transition-duration: 200ms;
+  }
+  .index-star {
+    font-size: 20px;
+
+  }
+  .user-information{
+      padding-bottom:5px;
+  }
+  @media (max-width:450px) {
+
+    .mdui-card-content {
+      padding-top: 0px;
+    }
+
+    .mdui-card-header {
+      padding: 10px 10px 0px 10px;
+      height: 60px;
+    }
+
+  }
+  @media(max-width:1024px){
+      #user{
+          margin-top:-70px;
+      }
+      .user-information{
+        padding-bottom:5px;
+        padding-top:10px;
+    }
+    .user-recent{
+        margin-top:20px;
+    }
+  }
