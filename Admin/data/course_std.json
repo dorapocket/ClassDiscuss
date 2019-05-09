@@ -1,0 +1,42 @@
+{
+  "total": 3,
+  "rows": [
+    {   "ClassID": 6,
+        "Score": 9,
+        "Code": "A00000002",
+        "ClassName": "测试课程2",
+        "ClassTime": "周二1，2节",
+        "Type": "通识必修",
+        "Academy": "计算机学院",
+        "KCCC": "必修课",
+        "Point": 2,
+        "TeacherID": 3,
+        "Name": "章天杰"
+    },
+    {   "ClassID": 5,
+        "Score": 10,
+        "Code": "A00000001",
+        "ClassName": "测试课程1",
+        "ClassTime": "周一1，2节",
+        "Type": "通识必修",
+        "Academy": "信息学院",
+        "KCCC": "必修课",
+        "Point": 7,
+        "TeacherID": 4,
+        "Name": "大神"
+
+    },
+    {   "ClassID": 4,
+        "Score": 10,
+        "Code": "14134",
+        "ClassName": "汽车维修",
+        "ClassTime": "周一",
+        "Type": "fa",
+        "Academy": "sdfhdh",
+        "KCCC": "是人都会、",
+        "Point": 9,
+        "TeacherID": 1,
+        "Name": "李国宇"
+    }
+  ]
+}

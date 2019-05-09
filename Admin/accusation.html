@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>举报管理 - ClassRate</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!--bootstrap table-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin@1.10.1/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+</head>
+<body class="gray-bg">
+    <!--举报处理模态框开始-->
+    <div class="modal inmodal" id="passmodal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-warning modal-icon"></i>
+                    <h4 class="modal-title">确认通过举报？</h4>
+                    正在处理的举报编号为<code id="passid"></code>。举报通过后，对应评论将不再显示，请确认后操作。
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">处理理由</label>
+                            <div class="col-sm-9">
+                                <input id="p_reason" type="text" name="" class="form-control" placeholder="(可选)">
+                            </div>
+                        </div><br><br>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="pass();">通过</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--举报处理模态框结束-->
+
+    <!--举报驳回模态框开始-->
+    <div class="modal inmodal" id="overrulemodal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-warning modal-icon"></i>
+                    <h4 class="modal-title">确认驳回举报？</h4>
+                    正在处理的举报编号为<code id="overruleid"></code>。举报驳回后，将不会对原评论处理，请确认后操作。
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">处理理由</label>
+                            <div class="col-sm-9">
+                                <input id="o_reason" type="text" name="" class="form-control" placeholder="(可选)">
+                            </div>
+                        </div><br><br>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="overrule();">驳回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--举报驳回模态框结束-->
+    <div class="wrapper wrapper-content  animated fadeIn">
+
+        <div id="toolbar">
+            <button id="morepass" class="btn btn-success" data-toggle="modal" data-target="#addclassmodal">
+                <i class="glyphicon glyphicon-ok"></i> 批量通过
+            </button>
+            <button id="remove" class="btn btn-danger" data-toggle="modal" data-target="#deletewarning">
+                <i class="glyphicon glyphicon-remove"></i> 批量驳回
+            </button>
+        </div>
+
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">未处理举报</a>
+                </li>
+                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">已通过举报</a>
+                </li>
+                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">已驳回举报</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                        <table id="accusationtable"></table>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-pane">
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</body>
+</html>
+
+<script>
+    window.operateEvents = {
+        'click .pass': function (e, value, row, index) {
+            document.getElementById("passid").innerHTML = row.JBID;
+            $('#passmodal').modal('show')
+        },
+        'click .overrule': function (e, value, row, index) {
+            document.getElementById("overruleid").innerHTML = row.JBID;
+            $('#overrulemodal').modal('show')
+        },
+    }
+
+    var TableInit = function(){
+        var oTableInit = new Object();
+        oTableInit.Init = function(){
+            $('#accusationtable').bootstrapTable(
+                {
+                    toolbar:"#toolbar",
+                    search: true,
+                    showRefresh: true,
+                    showToggle: false,
+                    showColumns: true,
+                    showExport: true,
+                    showFooter: false,
+                    // detailView:"true",
+                    // detailFormatter:"detailFormatter",
+
+                    minimumCountColumns: 2,
+                    idField:"id",
+
+                    showPaginationSwitch: true,
+                    pagination: true,
+                    pageSize: 10,
+                    pageList: '[5, 10, 25, 50, 100, ALL]',
+                    sidePagination:"client",
+
+                    queryParamsType:'',
+                    locale: "zh-CN",
+                    striped: true,
+
+                    url:'../modules/ajax/ajax_jb_list.php',
+                    // url:'data/accusation.json',
+                    method:'get',
+                    responseHandler:"responseHandler",
+
+                    columns: [
+                        [{
+                            field: 'state',
+                            checkbox: true,
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle'
+                        }, {
+                            title: '举报编号',
+                            field: 'JBID',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            // sortable: true,
+                        }, {
+                            title: '举报人信息',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            field: 'UserID'
+                        }, {
+                            title: '举报详情',
+                            colspan: 7,
+                            align: 'center'
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            events: window.operateEvents,
+                            formatter: operateFormatter
+                        }],
+                        [{
+                            field: 'UserName',
+                            title: '被举报人用户名',
+                            // sortable: true,
+                            align: 'center',
+                        },{
+                            field: 'Time',
+                            title: '评论发表时间',
+                            // sortable: true,
+                            align: 'center',
+                        },{
+                            field: 'CommitID',
+                            title: '评论编号',
+                            // sortable: true,
+                            align: 'center',
+                        },{
+                            field: 'Score',
+                            title: '评论打分',
+                            // sortable: true,
+                            align: 'center',
+                        },{
+                            field: 'Text',
+                            title: '评论内容',
+                            // sortable: true,
+                            align: 'center',
+                        },{
+                            field: 'ClassID',
+                            title: '对应课程ID',
+                            // sortable: true,
+                            align: 'center',
+                        }, {
+                            field: 'ClassName',
+                            title: '对应课程名称',
+                            align: 'center',
+                            // sortable: true,
+                            events: window.operateEvents,
+                        }]
+                    ]
+
+                }
+            )
+        }
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+
+    var responseHandler = function (res) {
+        return {
+            "rows": res.data,
+            "total": res.total
+        };
+    }
+
+    function operateFormatter(value, row, index) {//赋予的参数
+        return [
+            '<button id="pass" class="btn btn-success pass" onclick="javascript:void(0);">',
+            '<i class="glyphicon glyphicon-ok"></i> 审核通过',
+            '</button>',
+            '<span>    </span>',
+            '<button id="overrule" class="btn btn-danger overrule" onclick="javascript:void(0);">',
+            '<i class="glyphicon glyphicon-remove"></i> 驳回举报',
+            '</button>'
+        ].join('')
+    }
+
+    $(function () {
+            var oTable = new TableInit();
+            oTable.Init();
+        });
+
+
+    function pass(){
+        var url = "../modules/admin/deal_jb.php";
+        var JBID = document.getElementById("passid").innerHTML;
+        var JBLY = document.getElementById("p_reason").value;
+        var JBRES = "Delete";
+        if (JBLY == "") {
+            JBLY = JBRES;
+            // alert(JBLY);
+        }
+        $.get(url, {'JBID':JBID, 'JBRES':JBRES, 'JBLY':JBLY});
+        location.reload();
+
+    }
+
+    function overrule(){
+        var url = "../modules/admin/deal_jb.php";
+        var JBID = document.getElementById("overruleid").innerHTML;
+        var JBLY = document.getElementById("o_reason").value;
+        var JBRES = "Accept";
+        if (JBLY == "") {
+            JBLY = JBRES;
+            // alert(JBLY);
+        }
+        $.get(url, {'JBID':JBID, 'JBRES':JBRES, 'JBLY':JBLY})
+        location.reload();
+    }
+</script>

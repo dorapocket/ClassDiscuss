@@ -1,0 +1,11 @@
+{
+  "Message": "成功",
+  "data": [{
+    "TypeID": 1,
+    "TypeName": "必修课"
+  }, {
+    "TypeID": 2,
+    "TypeName": "选修课"
+  }],
+  "total": 2
+}

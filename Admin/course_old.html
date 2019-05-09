@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>教师管理 - ClassRate</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!--bootstrap table-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin@1.10.1/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div id="toolbar">
+            <button id="remove" class="btn btn-danger" disabled>
+                <i class="glyphicon glyphicon-remove"></i> Delete
+            </button>
+        </div>
+        <table
+                id="coursetable"
+                data-toolbar="#toolbar"
+                data-search="true"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-show-export="true"
+                data-detail-view="true"
+                data-detail-formatter="detailFormatter"
+                data-minimum-count-columns="2"
+                data-show-pagination-switch="true"
+                data-pagination="true"
+                data-id-field="id"
+                data-page-list="[10, 25, 50, 100, ALL]"
+                data-show-footer="false"
+                data-side-pagination="server"
+                data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
+                data-response-handler="responseHandler">
+        </table>
+        <!--data-url="data/course.json"-->
+    </div>
+</body>
+</html>
+
+<script>
+    var $table = $('#coursetable')
+    var $remove = $('#remove')
+    var selections = []
+
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        })
+    }
+
+    function responseHandler(res) {
+        $.each(res.rows, function (i, row) {
+            row.state = $.inArray(row.id, selections) !== -1
+        })
+        return res
+    }
+
+    function detailFormatter(index, row) {
+        var html = []
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+        })
+        return html.join('')
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="like" href="javascript:void(0)" title="Modify">',
+            '<i class="glyphicon glyphicon-pencil"></i>',
+            '</a>  ',
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('')
+    }
+
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row))
+        },
+        'click .remove': function (e, value, row, index) {
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: [row.id]
+            })
+        }
+    }
+
+    function totalTextFormatter(data) {
+        return 'Total'
+    }
+
+    function totalNameFormatter(data) {
+        return data.length
+    }
+
+    function totalPriceFormatter(data) {
+        var total = 0
+        $.each(data, function (i, row) {
+            total += +(row.price.substring(1))
+        })
+        return '$' + total
+    }
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: 800,
+            columns: [
+                [{
+                    field: 'state',
+                    checkbox: true,
+                    rowspan: 2,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: 'Item ID',
+                    field: 'id',
+                    rowspan: 2,
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    footerFormatter: totalTextFormatter
+                }, {
+                    title: 'Item Detail',
+                    colspan: 3,
+                    align: 'center'
+                }],
+                [{
+                    field: 'name',
+                    title: 'Item Name',
+                    sortable: true,
+                    editable: true,
+                    footerFormatter: totalNameFormatter,
+                    align: 'center'
+                }, {
+                    field: 'price',
+                    title: 'Item Price',
+                    sortable: true,
+                    align: 'center',
+                    editable: {
+                        type: 'text',
+                        title: 'Item Price',
+                        validate: function (value_) {
+                            var value = $.trim(value_)
+                            if (!value) {
+                                return 'This field is required'
+                            }
+                            if (!/^\$/.test(value)) {
+                                return 'This field needs to start width $.'
+                            }
+                            var data = $table.bootstrapTable('getData')
+
+
+                            var index = $(this).parents('tr').data('index')
+                            console.log(data[index])
+                            return ''
+                        }
+                    },
+                    footerFormatter: totalPriceFormatter
+                }, {
+                    field: 'operate',
+                    title: 'Item Operate',
+                    align: 'center',
+                    events: window.operateEvents,
+                    formatter: operateFormatter
+                }]
+            ]
+        })
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table',
+            function () {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+                // save your data, here just save the current page
+                selections = getIdSelections()
+                // push or splice the selections if you want to save all data selections
+            })
+        $table.on('expand-row.bs.table', function (e, index, row, $detail) {
+            if (index % 2 === 1) {
+                $detail.html('Loading from ajax request...')
+                $.get('LICENSE', function (res) {
+                    $detail.html(res.replace(/\n/g, '<br>'))
+                })
+            }
+        })
+        $table.on('all.bs.table', function (e, name, args) {
+            console.log(name, args)
+        })
+        $remove.click(function () {
+            var ids = getIdSelections()
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: ids
+            })
+            $remove.prop('disabled', true)
+        })
+    }
+
+    $(function() {
+        initTable()
+    })
+</script>

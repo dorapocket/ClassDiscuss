@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>教师管理 - ClassRate</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!--bootstrap table-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin@1.10.1/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div id="toolbar">
+            <button id="remove" class="btn btn-danger" disabled>
+                <i class="glyphicon glyphicon-remove"></i> Delete
+            </button>
+        </div>
+        <table id="coursetable"></table>
+        <!--data-url="data/course.json"-->
+    </div>
+</body>
+</html>
+
+<script>
+    var TableInit = function(){
+        var oTableInit = new Object();
+        oTableInit.Init = function(){
+            $('#coursetable').bootstrapTable(
+                {
+
+                    toolbar:"#toolbar",
+                    search:"true",
+                    showRefresh:"true",
+                    showToggle:"true",
+                    showColumns:"true",
+                    showExport:"true",
+                    detailView:"true",
+                    detailFormatter:"detailFormatter",
+                    minimumCountColumns:"2",
+                    showPaginationSwitch:"true",
+                    pagination:"true",
+                    idField:"id",
+                    pageList:"[10, 25, 50, 100, ALL]",
+                    showFooter:"false",
+                    sidePagination:"server",
+                    url:'data/course_std2.json',
+                    method:'get',
+                    responsehandler:"responseHandler",
+
+                    columns: [
+                        [{
+                            field: 'state',
+                            checkbox: true,
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle'
+                        }, {
+                            title: '编号',
+                            field: 'Class',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true,
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.ClassID;
+                            }
+                        }, {
+                            title: '详细信息',
+                            colspan: 8,
+                            align: 'center'
+                        }, {
+                            title: '教师信息',
+                            colspan: 3,
+                            align: 'center'
+                        }, {
+                            field: 'operate',
+                            title: '课程操作',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            events: window.operateEvents,
+                            formatter: operateFormatter
+                        }],
+                        [{
+                            field: 'Class',
+                            title: '课程名称',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.ClassName;
+                            }
+                        }, {
+                            field: 'Class',
+                            title: '上课时间',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.ClassTime;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '开课学院',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Academy;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '课程学分',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Point;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '选课代码',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Code;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '课程类型',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Type;
+                            }
+                        },{
+                            field: 'Class',
+                            title: 'KCCC',
+                            sortable: true,
+                            editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.KCCC;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '当前得分',
+                            sortable: true,
+                            align: 'center',
+                            editable: {
+                                type: 'text',
+                                title: 'Item Price',
+                                validate: function (value_) {
+                                    var value = $.trim(value_)
+                                    if (!value) {
+                                        return 'This field is required'
+                                    }
+                                    if (!/^\$/.test(value)) {
+                                        return 'This field needs to start width $.'
+                                    }
+                                    var data = $table.bootstrapTable('getData')
+
+
+                                    var index = $(this).parents('tr').data('index')
+                                    console.log(data[index])
+                                    return ''
+                                }
+                            },
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Score;
+                            }
+                        }, {
+                            field: 'Teacher',
+                            title: '教师编号',
+                            align: 'center',
+                            sortable: true,
+                            editable: true,
+                            events: window.operateEvents,
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.TeacherID;
+                            }
+                        }, {
+                            field: 'Teacher',
+                            title: '教师姓名',
+                            align: 'center',
+                            sortable: true,
+                            editable: true,
+                            events: window.operateEvents,
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Name;
+                            }
+                        }, {
+                            field: 'Teacher',
+                            title: '教师单位',
+                            align: 'center',
+                            sortable: true,
+                            editable: true,
+                            events: window.operateEvents,
+                            formatter: function(value,row, index){   //主要配置在这里
+                                return value.Academy;
+                            }
+                        }]
+                    ]
+
+                }
+            )
+        }
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+    var responseHandler = function (res) {
+        return {
+            "rows":res.data.Class,
+            "total": 3
+        };
+    }
+
+    function operateFormatter(value, row, index) {//赋予的参数
+        return [
+            '<a class="like" href="javascript:void(0)" title="Modify">',
+            '<i class="glyphicon glyphicon-pencil"></i>',
+            '</a>  ',
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('')
+    }
+
+    $(function () {
+            var oTable = new TableInit();
+            oTable.Init();
+        });
+</script>

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>课程管理 - ClassRate</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!--bootstrap table-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin@1.10.1/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+</head>
+<body class="gray-bg">
+    <!--删除提醒模态框开始-->
+    <div class="modal inmodal" id="deletewarning" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-warning modal-icon"></i>
+                    <h4 class="modal-title">确认删除课程？</h4>
+
+                    <span>将要删除<code id="deletename"></code>，课程编号为<code id="deleteid"></code>。课程删除无法撤销，请确认后执行操作。</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteclass();">删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除提醒模态框结束-->
+    <!--增加课程模态框开始-->
+    <div class="modal inmodal fade" id="addclassmodal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增课程</h4>
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程名称</label>
+                            <div class="col-sm-9">
+                                <input id="new_classname" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">选课代码</label>
+                            <div class="col-sm-9">
+                                <input id="new_classcode" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">上课时间</label>
+                            <div class="col-sm-9">
+                                <input id="new_classtime" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程性质</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <div class="input-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span id="a_TNamelabel">请选择课程性质</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="a_Typelist">
+                                            <!--<li><a href = "javascript:void(0);" onclick ="changetext(this);">Action</a></li>-->
+                                        </ul>
+                                        <span id="a_TIDlabel">  性质代码：未选择</span>
+                                        <!--<span class="input-group-addon" id="TIDlabel">学院代码：未选择</span>-->
+                                    </div>
+                                </div>
+                                <!--<input id="new_classtype" type="text" name="" class="form-control">-->
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">开课学院</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <div class="input-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span id="a_ANamelabel">请选择开课学院</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="a_academylist">
+                                            <!--<li><a href = "javascript:void(0);" onclick ="changetext(this);">Action</a></li>-->
+                                        </ul>
+                                        <span id="a_AIDlabel">  学院代码：未选择</span>
+                                        <!--<span class="input-group-addon" id="AIDlabel">学院代码：未选择</span>-->
+                                    </div>
+                                </div>
+                                <!--<input id="new_academy" type="text" name="" class="form-control">-->
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学分</label>
+                            <div class="col-sm-9">
+                                <input id="new_point" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">老师ID</label>
+                            <div class="col-sm-9">
+                                <input id="new_teacherid" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addclass();">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--增加课程模态框结束-->
+
+    <!--修改课程模态框开始-->
+    <div class="modal inmodal fade" id="modifymodal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">修改课程</h4>
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程编号</label>
+                            <div class="col-sm-9">
+                                <input id="m_classid" type="text" name="" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程名称</label>
+                            <div class="col-sm-9">
+                                <input id="m_classname" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">选课代码</label>
+                            <div class="col-sm-9">
+                                <input id="m_classcode" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">上课时间</label>
+                            <div class="col-sm-9">
+                                <input id="m_classtime" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程性质</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <div class="input-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span id="m_TNamelabel">请选择课程性质</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="m_Typelist">
+                                            <!--<li><a href = "javascript:void(0);" onclick ="changetext(this);">Action</a></li>-->
+                                        </ul>
+                                        <span id="m_TIDlabel">性质代码：未选择</span>
+                                        <!--<span class="input-group-addon" id="TIDlabel">学院代码：未选择</span>-->
+                                    </div>
+                                </div>
+                                <!--<input id="m_classtype" type="text" name="" class="form-control">-->
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">开课学院</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <div class="input-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span id="m_ANamelabel">请选择开课学院</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="m_academylist">
+                                            <!--<li><a href = "javascript:void(0);" onclick ="changetext(this);">Action</a></li>-->
+                                        </ul>
+                                        <span id="m_AIDlabel">学院代码：未选择</span>
+                                        <!--<span class="input-group-addon" id="AIDlabel">学院代码：未选择</span>-->
+                                    </div>
+                                </div>
+                                <!--<input id="m_academy" type="text" name="" class="form-control">-->
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">学分</label>
+                            <div class="col-sm-9">
+                                <input id="m_point" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">老师ID</label>
+                            <div class="col-sm-9">
+                                <input id="m_teacherid" type="text" name="" class="form-control">
+                            </div>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="modify();">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--增加课程模态框结束-->
+
+    <div class="wrapper wrapper-content  animated fadeIn">
+        <div id="toolbar">
+            <button id="addclass" class="btn btn-success" data-toggle="modal" data-target="#addclassmodal">
+                <i class="glyphicon glyphicon-plus"></i> 新增课程
+            </button>
+            <button id="remove" class="btn btn-danger" data-toggle="modal" data-target="#deletewarning" disabled>
+                <i class="glyphicon glyphicon-remove"></i> 删除课程
+            </button>
+        </div>
+        <table id="coursetable"></table>
+        <!--data-url="data/course.json"-->
+    </div>
+
+
+
+</body>
+</html>
+
+<script>
+    window.operateEvents = {
+        'click .modify': function (e, value, row, index) {
+            document.getElementById("m_classid").value = row.Class.ClassID;
+            document.getElementById("m_classname").value = row.Class.ClassName;
+            document.getElementById("m_classcode").value = row.Class.Code;
+            document.getElementById("m_classtime").value = row.Class.ClassTime;
+            document.getElementById("m_TNamelabel").innerHTML = row.Class.Type;
+            document.getElementById("m_ANamelabel").innerHTML = row.Class.Academy;
+            document.getElementById("m_point").value = row.Class.Point;
+            document.getElementById("m_teacherid").value = row.Teacher.Name;
+            $('#modifymodal').modal('show')
+            $.getJSON('data/AcademyList.json', function (json) {
+                // alert(json.data.length);
+                //遍历赋值
+                for (var key in json.data) {
+                    if(json.data[key].AcademyName == row.Class.Academy){
+                        var curAID = json.data[key].AcademyID;
+                        document.getElementById("m_AIDlabel").innerHTML = '学院代码：'+curAID;
+                        break;
+                    }
+                }
+            })
+            $.getJSON('data/TypeList.json', function (json) {
+                // alert(json.data.length);
+                //遍历赋值
+                for (var key in json.data) {
+                    if(json.data[key].TypeName == row.Class.Type){
+                        var curTID = json.data[key].TypeID;
+                        document.getElementById("m_TIDlabel").innerHTML = '性质代码：'+curTID;
+                        break;
+                    }
+                }
+            })
+            // alert(row.Class.ClassID);
+            // alert(JSON.stringify(row));
+        },
+        'click .remove': function (e, value, row, index) {
+            document.getElementById("deletename").innerHTML = row.Class.ClassName;
+            document.getElementById("deleteid").innerHTML = row.Class.ClassID;
+            $('#deletewarning').modal('show');
+        }
+    }
+
+    var TableInit = function(){
+        var oTableInit = new Object();
+        oTableInit.Init = function(){
+            $('#coursetable').bootstrapTable(
+                {
+                    toolbar:"#toolbar",
+                    search: true,
+                    showRefresh: true,
+                    showToggle: false,
+                    showColumns: true,
+                    showExport: true,
+                    showFooter: false,
+                    // detailView:"true",
+                    // detailFormatter:"detailFormatter",
+
+                    minimumCountColumns: 2,
+                    idField:"id",
+
+                    showPaginationSwitch: true,
+                    pagination: true,
+                    pageSize: 10,
+                    pageList: '[5, 10, 25, 50, 100, ALL]',
+                    sidePagination:"client",
+
+                    queryParamsType:'',
+                    locale: "zh-CN",
+                    striped: true,
+
+                    url:'../modules/ajax/ajax_class_list.php',
+                    // url:'data/course_ol.json',
+                    method:'get',
+                    responseHandler:"responseHandler",
+
+                    columns: [
+                        [{
+                            field: 'state',
+                            checkbox: true,
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle'
+                        }, {
+                            title: '编号',
+                            field: 'Class',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            // sortable: true,
+                            formatter: function(value,row, index){   
+                                return value.ClassID;
+                            }
+                        }, {
+                            title: '课程信息',
+                            colspan: 7,
+                            align: 'center'
+                        }, {
+                            title: '教师信息',
+                            colspan: 2,
+                            align: 'center'
+                        }, {
+                            field: 'operate',
+                            title: '课程操作',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            events: window.operateEvents,
+                            formatter: operateFormatter
+                        }],
+                        [{
+                            field: 'Class',
+                            title: '课程名称',
+                            // sortable: true,
+                            // editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   
+                                return value.ClassName;
+                            }
+                        }, {
+                            field: 'Class',
+                            title: '上课时间',
+                            // sortable: true,
+                            // editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   
+                                return value.ClassTime;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '开课学院',
+                            // sortable: true,
+                            // editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   
+                                return value.Academy;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '课程学分',
+                            // sortable: true,
+                            // editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   
+                                return value.Point;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '选课代码',
+                            // sortable: true,
+                            // editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   
+                                return value.Code;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '课程类型',
+                            // sortable: true,
+                            // editable: true,
+                            align: 'center',
+                            formatter: function(value,row, index){   
+                                return value.Type;
+                            }
+                        },{
+                            field: 'Class',
+                            title: '当前得分',
+                            // sortable: true,
+                            align: 'center',
+/*                            editable: {
+                                type: 'text',
+                                title: 'Item Price',
+                                validate: function (value_) {
+                                    var value = $.trim(value_)
+                                    if (!value) {
+                                        return 'This field is required'
+                                    }
+                                    if (!/^\$/.test(value)) {
+                                        return 'This field needs to start width $.'
+                                    }
+                                    var data = $table.bootstrapTable('getData')
+
+
+                                    var index = $(this).parents('tr').data('index')
+                                    console.log(data[index])
+                                    return ''
+                                }
+                            },*/
+                            formatter: function(value,row, index){
+                                return value.Score;
+                            }
+                        }, {
+                            field: 'Teacher',
+                            title: '教师编号',
+                            align: 'center',
+                            // sortable: true,
+                            // editable: true,
+                            events: window.operateEvents,
+                            formatter: function(value,row, index){   
+                                return value.TeacherID;
+                            }
+                        }, {
+                            field: 'Teacher',
+                            title: '教师姓名',
+                            align: 'center',
+                            // sortable: true,
+                            // editable: true,
+                            events: window.operateEvents,
+                            formatter: function(value,row, index){   
+                                return value.Name;
+                            }
+                        }]
+                    ]
+
+                }
+            )
+        }
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset:params.offset
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+
+    var responseHandler = function (res) {
+        return {
+            "rows": res.data,
+            "total": res.total
+        };
+    }
+
+    function operateFormatter(value, row, index) {//赋予的参数
+        return [
+            '<a class="modify" href="javascript:void(0)" title="Modify">',
+            '<i class="glyphicon glyphicon-pencil"></i>',
+            '</a>',
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('')
+    }
+
+    $(function () {
+            var oTable = new TableInit();
+            oTable.Init();
+        });
+
+    $(function () {
+        $.getJSON('data/AcademyList.json', function (json) {
+            // alert(json.data.length);
+            //遍历赋值
+            for (var key in json.data) {
+                // alert(json.data[key].AcademyID);
+                // $("#academylist").append('<li><a href="#">Action1</a></li>');
+                $("#a_academylist").append('<li><a href = "javascript:void(0);" onclick ="a_Achangetext(this);" id=AName' + json.data[key].AcademyID + '>' + json.data[key].AcademyName + '</a></li>');
+            }
+        })
+    });
+
+    $(function () {
+        $.getJSON('data/TypeList.json', function (json) {
+            // alert(json.data.length);
+            //遍历赋值
+            for (var key in json.data) {
+                // alert(json.data[key].TypeID);
+                // $("#Typelist").append('<li><a href="#">Action1</a></li>');
+                $("#a_Typelist").append('<li><a href = "javascript:void(0);" onclick ="a_Tchangetext(this);" id=TName' + json.data[key].TypeID + '>' + json.data[key].TypeName + '</a></li>');
+            }
+        })
+    });
+
+    $(function () {
+        $.getJSON('data/AcademyList.json', function (json) {
+            // alert(json.data.length);
+            //遍历赋值
+            for (var key in json.data) {
+                // alert(json.data[key].AcademyID);
+                // $("#academylist").append('<li><a href="#">Action1</a></li>');
+                $("#m_academylist").append('<li><a href = "javascript:void(0);" onclick ="m_Achangetext(this);" id=AName' + json.data[key].AcademyID + '>' + json.data[key].AcademyName + '</a></li>');
+            }
+        })
+    });
+
+    $(function () {
+        $.getJSON('data/TypeList.json', function (json) {
+            // alert(json.data.length);
+            //遍历赋值
+            for (var key in json.data) {
+                // alert(json.data[key].TypeID);
+                // $("#Typelist").append('<li><a href="#">Action1</a></li>');
+                $("#m_Typelist").append('<li><a href = "javascript:void(0);" onclick ="m_Tchangetext(this);" id=TName' + json.data[key].TypeID + '>' + json.data[key].TypeName + '</a></li>');
+            }
+        })
+    });
+
+    function a_Achangetext(s){
+        // alert(s.innerHTML);
+        document.getElementById("a_ANamelabel").innerHTML = s.innerHTML;
+        document.getElementById("a_AIDlabel").innerHTML = '学院代码：'+s.id.substring(5);
+    }
+
+    function a_Tchangetext(s){
+        // alert(s.innerHTML);
+        document.getElementById("a_TNamelabel").innerHTML = s.innerHTML;
+        document.getElementById("a_TIDlabel").innerHTML = '性质代码：'+s.id.substring(5);
+    }
+
+    function m_Achangetext(s){
+        // alert(s.innerHTML);
+        document.getElementById("m_ANamelabel").innerHTML = s.innerHTML;
+        document.getElementById("m_AIDlabel").innerHTML = '学院代码：'+s.id.substring(5);
+    }
+
+    function m_Tchangetext(s){
+        // alert(s.innerHTML);
+        document.getElementById("m_TNamelabel").innerHTML = s.innerHTML;
+        document.getElementById("m_TIDlabel").innerHTML = '性质代码：'+s.id.substring(5);
+    }
+
+    function addclass(){
+        var url = "../modules/admin/add_class.php";
+        var ClassName = document.getElementById("new_classname").value;
+        var Code = document.getElementById("new_classcode").value;
+        var ClassTime = document.getElementById("new_classtime").value;
+        // var Type = document.getElementById("new_classtype").value;
+        // var Academy = document.getElementById("new_academy").value;
+        var Type = document.getElementById("a_AIDlabel").innerHTML.substring(5);
+        var Academy = document.getElementById("a_AIDlabel").innerHTML.substring(5);
+        var Point = document.getElementById("new_point").value;
+        var TeacherID = document.getElementById("new_teacherid").value;
+        $.post(url, {'ClassName':ClassName, 'Code':Code, 'ClassTime':ClassTime, 'Type':Type, 'Academy':Academy, 'Point':Point, 'TeacherID':TeacherID});
+        location.reload();
+    }
+
+    function modify(){
+        var url = "../modules/admin/edit_class.php";
+        var ClassID = document.getElementById("m_classid").value;
+        var ClassName = document.getElementById("m_classname").value;
+        var Code = document.getElementById("m_classcode").value;
+        var ClassTime = document.getElementById("m_classtime").value;
+        // var Type = document.getElementById("m_classtype").value;
+        // var Academy = document.getElementById("m_academy").value;
+        var Type = document.getElementById("m_AIDlabel").innerHTML.substring(5);
+        var Academy = document.getElementById("m_AIDlabel").innerHTML.substring(5);
+        var Point = document.getElementById("m_point").value;
+        var TeacherID = document.getElementById("m_teacherid").value;
+        $.post(url, {'ClassID':ClassID,'ClassName':ClassName, 'Code':Code, 'ClassTime':ClassTime, 'Type':Type, 'Academy':Academy, 'Point':Point, 'TeacherID':TeacherID});
+        location.reload();
+    }
+
+    function deleteclass(){
+        var url = "../modules/admin/del_class.php";
+        var DeleteID = document.getElementById("deleteid").innerHTML;
+        $.get(url, {'ClassID':DeleteID});
+        location.reload();
+    }
+</script>

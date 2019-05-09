@@ -1,0 +1,55 @@
+{
+  "Message": "成功",
+  "data": [{
+    "JBID": 10,
+    "UserID": 5,
+    "UserName": "章天杰",
+    "ClassID": 5,
+    "ClassName": "测试课程1",
+    "CommitID": 33,
+    "Score": 10,
+    "Text": "test",
+    "Time": "2019-03-02 19:16:45"
+  }, {
+    "JBID": 9,
+    "UserID": 1,
+    "UserName": "classdiscuss",
+    "ClassID": 3,
+    "ClassName": "高等数学A1",
+    "CommitID": 25,
+    "Score": 6,
+    "Text": "buzadi",
+    "Time": "2019-02-21 09:52:10"
+  }, {
+    "JBID": 8,
+    "UserID": 1,
+    "UserName": "lgy",
+    "ClassID": 5,
+    "ClassName": "测试课程1",
+    "CommitID": 31,
+    "Score": 2,
+    "Text": "980",
+    "Time": "2019-02-27 21:45:37"
+  }, {
+    "JBID": 7,
+    "UserID": 1,
+    "UserName": "classdiscuss",
+    "ClassID": 5,
+    "ClassName": "测试课程1",
+    "CommitID": 30,
+    "Score": 6,
+    "Text": "99",
+    "Time": "2019-02-27 21:45:04"
+  }, {
+    "JBID": 6,
+    "UserID": 1,
+    "UserName": "lgy",
+    "ClassID": 5,
+    "ClassName": "测试课程1",
+    "CommitID": 31,
+    "Score": 2,
+    "Text": "980",
+    "Time": "2019-02-27 21:45:37"
+  }],
+  "total": 5
+}

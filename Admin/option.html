@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>option</title>
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/plugins/layer/layer.min.js"></script>
+
+</head>
+<body>
+<div class="dropdown">
+    <div class="input-group">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span id="ANamelabel">请选择开课学院</span>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="academylist">
+            <!--<li><a href = "javascript:void(0);" onclick ="changetext(this);">Action</a></li>-->
+        </ul>
+        <span id="AIDlabel">  学院代码：未选择</span>
+        <!--<span class="input-group-addon" id="AIDlabel">学院代码：未选择</span>-->
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        $.getJSON('data/AcademyList.json', function (json) {
+            // alert(json.data.length);
+            //遍历赋值
+            for (var key in json.data) {
+                // alert(json.data[key].AcademyID);
+                // $("#academylist").append('<li><a href="#">Action1</a></li>');
+                $("#academylist").append('<li><a href = "javascript:void(0);" onclick ="changetext(this);" id=AName' + json.data[key].AcademyID + '>' + json.data[key].AcademyName + '</a></li>');
+            }
+        })
+    });
+
+    function changetext(s){
+        // alert(s.innerHTML);
+        document.getElementById("ANamelabel").innerHTML = s.innerHTML;
+        document.getElementById("AIDlabel").innerHTML = '学院代码：'+s.id.substring(5);
+    }
+</script>

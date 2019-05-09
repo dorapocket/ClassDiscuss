@@ -1,0 +1,17 @@
+{
+  "Message": "成功",
+  "data": [{
+    "AcademyID": 1,
+    "AcademyName": "电子信息学院"
+  }, {
+    "AcademyID": 2,
+    "AcademyName": "自动化学院"
+  }, {
+    "AcademyID": 3,
+    "AcademyName": "通信工程学院"
+  }, {
+    "AcademyID": 4,
+    "AcademyName": "人文与法学院"
+  }],
+  "total": 4
+}
