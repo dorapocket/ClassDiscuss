@@ -1,6 +1,0 @@
-modules文件夹的mail模块 注册时候secrets是邮箱加classdiscussreg以后md5值 记得加密 上传github时候弄掉
-注册时密码加了classdiscusspwd后缀后md5 存储时又加了db.php里的usersalt 最后再md5
-mail模块写了邮箱密码。。。
-登陆时的session  （Email、UserName、Password、Admin、isLogin（1登陆0未） 
-评价提交的页面，，，
-匿名用户被举报的时候防止一下截取commitid来知道这个人是谁。(在用户回答区域屏蔽这个id的内容)
