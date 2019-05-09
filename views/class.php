@@ -9,10 +9,17 @@ if (!empty($ClassID)) {
     require_once "../modules/avatar.php";
     require_once "../modules/star.php";
     $db = new MysqliDb($dbhost, $dbuser, $dbpwd, $dbname);
-    $db->where("ClassID", $ClassID);
-    $Class = $db->getOne("class");
+    $query='select a.ClassID,a.Name,a.Code,a.ClassTime,a.Score,a.Difficulty,a.Gets,a.GiveScore,a.Homework,a.Point,a.TeacherID,b.Academy,c.Type from class a,academy_list b,type_list c where a.Type=c.ID and a.School=b.ID and a.ClassID='.$ClassID.' limit 1';
+    $Classl=$db->rawQuery($query);
+    if(empty($Classl)){
+        die('课程不存在');
+        exit;
+    }else{
+        $Class=$Classl[0];
+    }
     $db->where("TeacherID", $Class['TeacherID']);
-    $Teacher = $db->getOne("teacher");
+    $qteacher='select a.TeacherID,a.TeacherName,b.Academy,a.Score from teacher a,academy_list b where a.TeacherID='.$Class['TeacherID'].' and a.TeacherSchool=b.ID';
+    $Teacher = ($db->rawQuery($qteacher))[0];
     $sql1="select a.Name,b.TeacherName,a.ClassID from class a,teacher b where a.TeacherID=b.TeacherID and a.Name='".$Class['Name']."'limit 5";
     $sameclass=$db->rawQuery($sql1);
     $sameclasscount=count($sameclass);
@@ -75,11 +82,13 @@ if ($login) {
                     </div>
                     <div class="mdui-col-md-3 mdui-col-sm-3 mdui-col-offset-sm-2 mdui-col-xs-4 mdui-col-offset-md-2 class-star-inf">
                         <?php
+                        $star_all=new star;
+                        if($Class['Score']!=0){
                             $score = intval($Class['Score']);
-                            $star_all=new star;
                             $star_all->GenerateStar($score);
+                        }
                         ?>
-                        <strong class="df"><?php echo sprintf("%.1f", $Class['Score']); ?></strong>
+                        <strong class="df"><?php if($Class['Score']==0) echo "暂无评分"; else echo sprintf("%.1f", $Class['Score']); ?></strong>
                     </div>
                 </div>
                 <div class="mdui-divider"></div>
@@ -90,11 +99,12 @@ if ($login) {
                             <span class="mdui-chip-title"><strong>课程难度：</strong>
                             <?php
 $dif = intval($Class['Difficulty']);
+if($dif ==0){echo "暂无";}else{
 if ($dif < 2) {echo "极简";}
 if ($dif >= 2 && $dif < 4) {echo "简单";}
 if ($dif >= 4 && $dif < 6) {echo "略难";}
 if ($dif >= 6 && $dif < 8) {echo "还行";}
-if ($dif >= 8) {echo "天书";}
+if ($dif >= 8) {echo "天书";}}
 ?>
                             </span>
                         </div>
@@ -102,11 +112,12 @@ if ($dif >= 8) {echo "天书";}
                             <span class="mdui-chip-title"><strong>收获大小：</strong>
                             <?php
 $gets = intval($Class['Gets']);
+if($gets ==0){echo "暂无";}else{
 if ($gets < 2) {echo "毫无";}
 if ($gets >= 2 && $gets < 4) {echo "有点";}
 if ($gets >= 4 && $gets < 6) {echo "还行";}
 if ($gets >= 6 && $gets < 8) {echo "很多";}
-if ($gets >= 8) {echo "极大";}
+if ($gets >= 8) {echo "极大";}}
 ?>
                             </span>
                         </div>
@@ -114,11 +125,12 @@ if ($gets >= 8) {echo "极大";}
                             <span class="mdui-chip-title"><strong>给分好坏：</strong>
                             <?php
 $GS = intval($Class['GiveScore']);
+if($GS ==0){echo "暂无";}else{
 if ($GS < 2) {echo "坑爹";}
 if ($GS >= 2 && $GS < 4) {echo "很差";}
 if ($GS >= 4 && $GS < 6) {echo "还行";}
 if ($GS >= 6 && $GS < 8) {echo "挺好";}
-if ($GS >= 8) {echo "超好";}
+if ($GS >= 8) {echo "超好";}}
 ?>
                             </span>
                         </div>
@@ -126,11 +138,12 @@ if ($GS >= 8) {echo "超好";}
                             <span class="mdui-chip-title"><strong>作业多少：</strong>
                             <?php
 $hmw = intval($Class['Homework']);
+if($hmw ==0){echo "暂无";}else{
 if ($hmw < 2) {echo "没有";}
 if ($hmw >= 2 && $hmw < 4) {echo "有点";}
 if ($hmw >= 4 && $hmw < 6) {echo "还行";}
 if ($hmw >= 6 && $hmw < 8) {echo "略多";}
-if ($hmw >= 8) {echo "一堆";}
+if ($hmw >= 8) {echo "一堆";}}
 ?>
                             </span>
                         </div>
@@ -145,10 +158,7 @@ if ($hmw >= 8) {echo "一堆";}
                         <p><strong>课程性质：</strong><?php echo $Class['Type']; ?></p>
                     </div>
                     <div class="mdui-col-md-6">
-                        <p><strong>开课学院：</strong><?php echo $Class['School']; ?></p>
-                    </div>
-                    <div class="mdui-col-md-6">
-                        <p><strong>课程层次：</strong><?php echo $Class['KCCC']; ?></p>
+                        <p><strong>开课学院：</strong><?php echo $Class['Academy']; ?></p>
                     </div>
                     <div class="mdui-col-md-6">
                         <p><strong>课程学分：</strong><?php echo sprintf("%.1f", $Class['Point']); ?></p>
@@ -204,9 +214,9 @@ coll;
                             $teacherstar = intval($Teacher['Score']);
                             $star_all->GenerateStar($teacherstar);
                         ?>
-                            <strong style="font-size:20px;">&nbsp&nbsp<?php echo sprintf("%.1f", $Teacher['Score']); ?></strong></div>
+                            <strong style="font-size:20px;">&nbsp&nbsp<?php if($Teacher['Score']>0) echo sprintf("%.1f", $Teacher['Score']); else echo "暂无评价";?></strong></div>
                         <p><strong>姓名：</strong><?php echo $Teacher['TeacherName']; ?>&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                        <p><strong>学院：</strong><?php echo $Teacher['TeacherSchool']; ?>&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+                        <p><strong>学院：</strong><?php echo $Teacher['Academy']; ?>&nbsp&nbsp&nbsp&nbsp&nbsp</p>
                     </div>
                 </div>
                 <div class="mdui-divider"></div>
@@ -328,12 +338,13 @@ commit3;
                             <img src="https://ui-avatars.com/api/?color=fff&name=<?php echo $Teacher['TeacherName']?>&length=1&size=256" />
                             <div class="mdui-card-media-covered mdui-card-media-covered-gradient">
                                 <div class="mdui-card-primary">
-                                    <div class="mdui-card-primary-title"><?php echo $Teacher['TeacherName']; ?>老师<br>(<?php echo $Teacher['TeacherSchool']; ?>)</div>
+                                    <div class="mdui-card-primary-title"><?php echo $Teacher['TeacherName']; ?>老师<br>(<?php echo $Teacher['Academy']; ?>)</div>
                                     <div class="mdui-card-primary-subtitle teacherstar">
                                     <?php
+                                    if($Teacher['Score']!=0){
                                         $star_all->GenerateStar($teacherstar);
                                     ?>
-                                        <strong style="font-size:20px;">&nbsp&nbsp<?php echo sprintf("%.1f", $Teacher['Score']); ?></strong></div>
+                                        <strong style="font-size:20px;">&nbsp&nbsp<?php echo sprintf("%.1f", $Teacher['Score']); }else{echo "暂无评分";}?></strong></div>
                                 </div>
 
                             </div>

@@ -26,6 +26,11 @@ if($login){
         $data['UserID']=$_SESSION['UserID'];
         $data['CommitID']=$CommitID;
         $data['Time']=$db->now();
+        $data['Deal']=false;
+        $data['DealReason']="";
+        $data['DealTime']=$db->now();
+        $data['DealUser']="";
+        $data['DealIP']="";
         $id = $db->insert('jb_table', $data);
         if ($id) {
             $StatusCode='200';
